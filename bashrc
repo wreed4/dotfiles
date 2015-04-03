@@ -19,8 +19,10 @@ alias ls="ls --color=auto --group-directories-first"
 alias la="ls -A"
 alias ll="ls -l"
 alias lal="ls -lA"
+alias erc="$EDITOR ~/.bashrc"
 
 alias so="source"
+alias src="source ~/.bashrc"
 
 alias rmd="rm *.d"
 
