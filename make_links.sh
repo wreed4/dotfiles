@@ -2,6 +2,8 @@
 
 files=(bashrc tmux_conf)
 
-for f in $files; do
-    ln -s $f ~/.$f
+echo $files
+for f in ${files[@]}; do
+    echo ~/.$f "-->" $(pwd)/$f
+    ln $(pwd)/$f ~/.$f
 done
