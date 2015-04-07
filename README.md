@@ -7,7 +7,7 @@ Included files
 
 ## INSTALL 
 ```bash
-https://github.com/wreed4/dotfiles.git ~/.dotfiles
+git clone https://github.com/wreed4/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
 ./make_links.sh
 ```
