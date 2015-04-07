@@ -2,7 +2,7 @@
 Common dotfiles required for terminal environment (not .vimrc)
 
 Included files
-* .basrc
+* .bashrc
 * .tmux\_conf
 
 ## INSTALL 
