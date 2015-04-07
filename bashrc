@@ -68,6 +68,11 @@ export PS1="\n\[\e[0;32m\]\u\[\e[0m\]@\[\e[1;35m\]\h\[\e[0m\]:\[\e[4;36m\]\w\[\e
 
 #}}}
 
+#"{{{##### FUNCTIONS #####
+
+mkcd () { mkdir "$1" && cd "$1"; }
+
+#}}}
 
 if [ -e ~/.bashrc_custom ]; then
     source ~/.bashrc_custom
