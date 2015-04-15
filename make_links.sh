@@ -1,6 +1,6 @@
 #!/bin/bash
 
-files=(bashrc tmux_conf)
+files=(bashrc tmux.conf)
 
 for f in ${files[@]}; do
     echo ~/.$f "-->" $(pwd)/$f
