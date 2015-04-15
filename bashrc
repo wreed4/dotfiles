@@ -6,7 +6,7 @@
 export EDITOR=vim
 export VISUAL=$EDITOR
 export PATH=$HOME/bin:$PATH
-#export TERM=xterm-256color
+#export TERM=xterm-256color-italic
 
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
@@ -75,6 +75,7 @@ mkcd () { mkdir "$1" && cd "$1"; }
 #}}}
 
 if [ -e ~/.bashrc_custom ]; then
+    alias ecrc="$EDITOR ~/.bashrc_custom"
     source ~/.bashrc_custom
 fi
 
