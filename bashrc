@@ -20,7 +20,7 @@ alias la="ls -A"
 alias ll="ls -l"
 alias lal="ls -lA"
 
-alias erc="$EDITOR ~/.bashrc"
+alias erc='$EDITOR ~/.bashrc'
 
 alias so="source"
 alias src="source ~/.bashrc"
@@ -75,7 +75,7 @@ mkcd () { mkdir "$1" && cd "$1"; }
 #}}}
 
 if [ -e ~/.bashrc_custom ]; then
-    alias ecrc="$EDITOR ~/.bashrc_custom"
+    alias ecrc='$EDITOR ~/.bashrc_custom'
     source ~/.bashrc_custom
 fi
 
