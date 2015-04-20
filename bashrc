@@ -27,6 +27,8 @@ alias src="source ~/.bashrc"
 
 alias rmd="rm *.d"
 
+alias lt='$(fc -ln -1) | less' # "less that".  Carefull, this can be dangerous because it executes the last command
+
 
 # default flags
 alias tmux="tmux -u"
@@ -36,7 +38,6 @@ alias pyclewn="pyclewn --window=bottom" # default arguments for pyclewn
 alias ctags="ctags -R --c++-kinds=+lpx --fields=+amiS --extra=+q --totals --exclude=submit *.cxx *.h "
 alias grep="grep --color"
 
-#alias lt="\!\! | less" # "less that".  Carefull, this can be dangerous because it uses the '!!' macro  # DOESN'T WORK 
 
 
 #}}}
