@@ -1,6 +1,9 @@
 # Willie Reed
 # bash config
 
+# set vim key bindings
+set -o vi
+
 #{{{ ######  VARIABLES ######
 
 export EDITOR=vim
