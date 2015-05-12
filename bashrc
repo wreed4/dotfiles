@@ -2,7 +2,7 @@
 # bash config
 
 # set vim key bindings
-set -o vi
+#set -o vi
 
 #{{{ ######  VARIABLES ######
 
@@ -35,7 +35,7 @@ alias lt='$(fc -ln -1) | less' # "less that".  Carefull, this can be dangerous b
 
 # default flags
 alias tmux="tmux -u"
-alias ssh="ssh -XC"
+# alias ssh="ssh -XC"
 alias cs="cscope -b"
 alias pyclewn="pyclewn --window=bottom" # default arguments for pyclewn 
 alias ctags="ctags -R --c++-kinds=+lpx --fields=+amiS --extra=+q --totals --exclude=submit *.cxx *.h "
@@ -88,10 +88,14 @@ if ! shopt -oq posix; then
   elif [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
   fi
+
+  if [ -f ~/.bash_completion ]; then
+      source ~/.bash_completion
+  fi
 fi
 
 
-if [ -e ~/.bashrc_custom ]; then
+if [ -f ~/.bashrc_custom ]; then
     alias ecrc='$EDITOR ~/.bashrc_custom'
     source ~/.bashrc_custom
 fi
