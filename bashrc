@@ -13,6 +13,9 @@ if [[ ! $PATH =~ "$HOME/bin" ]]; then
     export PATH=$HOME/bin:$PATH
 fi
 #export TERM=xterm-256color-italic
+if [ "$TERM" == "xterm" ]; then
+    export TERM=xterm-256color
+fi
 
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
@@ -83,20 +86,20 @@ if [ -z $ZSH_NAME ]; then
     _print_last_return() {
         ret=$?
         if [[ $ret != 0 ]]; then
-            echo -e "[\e[0;31m$ret\e[0m] "
+            echo -e "[\e[0;31m$ret\e[0m]"
         fi
     }
 
-    if [[ -f "$(brew --prefix bash-git-prompt)/share/gitprompt.sh" ]]; then
-        GIT_PROMPT_START="\n\e[0;32m\u\e[0m@\e[1;35m\h\e[0m:\e[4;36m\w\e[0m"
-        GIT_PROMPT_END='  ~ \d \@ ~\n$(_print_last_return)-> '
+    # if [[ -f "$(brew --prefix bash-git-prompt)/share/gitprompt.sh" ]]; then
+        # GIT_PROMPT_START="\n\e[0;32m\u\e[0m@\e[1;35m\h\e[0m:\e[4;36m\w\e[0m"
+        # GIT_PROMPT_END='  ~ \d \@ ~\n$(_print_last_return)-> '
 
-        source "$(brew --prefix bash-git-prompt)/share/gitprompt.sh"
-    else
+        # source "$(brew --prefix bash-git-prompt)/share/gitprompt.sh"
+    # else
         # export PS1="\n\[\e[0;32m\]\u\[\e[0m\]@\[\e[1;35m\]\h\[\e[0m\]:\[\e[4;36m\]\w\[\e[0m\]\n-> "
         # simplified version:
-        export PS1="\n\e[0;32m\u\e[0m@\e[1;35m\h\e[0m:\e[4;36m\w\e[0m  ~\d \@ ~\n$(_print_last_return)->"
-    fi
+        export PS1='\n\e[0;32m\u\e[0m@\e[1;35m\h\e[0m:\e[4;36m\w\e[0m  ~\d \@ ~\n$(_print_last_return)-> '
+    # fi
 
 fi
 
@@ -105,6 +108,9 @@ fi
 #"{{{##### FUNCTIONS #####
 
 mkcd () { mkdir "$1" && cd "$1"; }
+
+urlencode (){ python -c "import urllib, sys; print urllib.quote(sys.argv[1])" $1; }
+urldecode (){ python -c "import urllib, sys; print urllib.unquote(sys.argv[1])" $1; }
 
 #}}}
 
