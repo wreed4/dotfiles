@@ -107,7 +107,7 @@ fi
 
 #"{{{##### FUNCTIONS #####
 
-mkcd () { mkdir "$1" && cd "$1"; }
+mkcd () { mkdir -p "$1" && cd "$1"; }
 
 urlencode (){ python -c "import urllib, sys; print urllib.quote(sys.argv[1])" $1; }
 urldecode (){ python -c "import urllib, sys; print urllib.unquote(sys.argv[1])" $1; }
