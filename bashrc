@@ -98,7 +98,7 @@ if [ -z $ZSH_NAME ]; then
     # else
         # export PS1="\n\[\e[0;32m\]\u\[\e[0m\]@\[\e[1;35m\]\h\[\e[0m\]:\[\e[4;36m\]\w\[\e[0m\]\n-> "
         # simplified version:
-        export PS1='\n\e[0;32m\u\e[0m@\e[1;35m\h\e[0m:\e[4;36m\w\e[0m  ~\d \@ ~\n$(_print_last_return)-> '
+        export PS1='\n\[\e[0;32m\]\u\[\e[0m\]@\[\e[1;35m\]\h\[\e[0m\]:\[\e[4;36m\]\w\[\e[0m\]  ~\d \@~\n$(_print_last_return)-> '
     # fi
 
 fi
