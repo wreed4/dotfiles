@@ -76,7 +76,6 @@ _bash_history_sync() {
   builtin history -r         #4
 }
 
-PROMPT_COMMAND=_bash_history_sync
 
 #}}}
 
@@ -86,9 +85,16 @@ if [ -z $ZSH_NAME ]; then
     _print_last_return() {
         ret=$?
         if [[ $ret != 0 ]]; then
-            echo -e "[\e[0;31m$ret\e[0m]"
+            echo -e "[\[\e[0;31m\]$ret\[\e[0m\]]"
         fi
     }
+
+    _make_prompt() {
+       PS1="\n\[\e[0;32m\]\u\[\e[0m\]@\[\e[1;35m\]\h\[\e[0m\]:\[\e[4;36m\]\w\[\e[0m\]  ~\d \@~\n$(_print_last_return)-> "
+       _bash_history_sync
+    }
+
+    PROMPT_COMMAND=_make_prompt
 
     # if [[ -f "$(brew --prefix bash-git-prompt)/share/gitprompt.sh" ]]; then
         # GIT_PROMPT_START="\n\e[0;32m\u\e[0m@\e[1;35m\h\e[0m:\e[4;36m\w\e[0m"
@@ -98,7 +104,7 @@ if [ -z $ZSH_NAME ]; then
     # else
         # export PS1="\n\[\e[0;32m\]\u\[\e[0m\]@\[\e[1;35m\]\h\[\e[0m\]:\[\e[4;36m\]\w\[\e[0m\]\n-> "
         # simplified version:
-        export PS1='\n\[\e[0;32m\]\u\[\e[0m\]@\[\e[1;35m\]\h\[\e[0m\]:\[\e[4;36m\]\w\[\e[0m\]  ~\d \@~\n$(_print_last_return)-> '
+        export PS1="\n\[\e[0;32m\]\u\[\e[0m\]@\[\e[1;35m\]\h\[\e[0m\]:\[\e[4;36m\]\w\[\e[0m\]  ~\d \@~\n\$(_print_last_return)-> "
     # fi
 
 fi
