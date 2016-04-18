@@ -45,6 +45,7 @@ alias rmd="rm *.d"
 
 alias lt='$(fc -ln -1) | less' # "less that".  Carefull, this can be dangerous because it executes the last command
 
+alias gst='git status'
 
 # default flags
 alias tmux="tmux -u"
