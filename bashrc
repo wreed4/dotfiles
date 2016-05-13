@@ -1,17 +1,21 @@
 # Willie Reed
 # bash config
 
+#{{{ ###### SETTINGS ######
 # set vim key bindings
 #set -o vi
 
-#{{{ ######  VARIABLES ######
+stty -ixon
+#}}}
+
+#{{{ ###### VARIABLES ######
 
 export EDITOR=vim
 export DIFF=vimdiff
 export VISUAL=$EDITOR
-if [[ ! $PATH =~ "$HOME/bin" ]]; then
-    export PATH=$HOME/bin:$PATH
-fi
+# if [[ ! $PATH =~ "$HOME/bin" ]]; then
+export PATH=$HOME/bin:$PATH
+# fi
 #export TERM=xterm-256color-italic
 if [ "$TERM" == "xterm" ]; then
     export TERM=xterm-256color
@@ -21,8 +25,9 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
 # linuxbrew setup
-if [[ -d ~/.linuxbrew && ! $PATH =~ "linuxbrew" ]]; then
+if [[ -d ~/.linuxbrew ]]; then #&& ! $PATH =~ "linuxbrew" ]]; then
     export PATH="$HOME/.linuxbrew/bin:$PATH"
+    export PATH="/home/user/wreed/.linuxbrew/sbin:$PATH"
     export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
     export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
 fi
@@ -46,6 +51,7 @@ alias rmd="rm *.d"
 alias lt='$(fc -ln -1) | less' # "less that".  Carefull, this can be dangerous because it executes the last command
 
 alias gst='git status'
+alias gdiff='git difftool'
 
 # default flags
 alias tmux="tmux -u"
@@ -147,4 +153,4 @@ if [ -f ~/.bashrc_custom ]; then
     source ~/.bashrc_custom
 fi
 
-# vim: set foldmethod=marker:
+# vim:foldmethod=marker:foldlevel=0:
