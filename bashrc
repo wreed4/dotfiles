@@ -46,6 +46,8 @@ alias erc='$EDITOR ~/.bashrc'
 alias so="source"
 alias src="source ~/.bashrc"
 
+alias x="chmod +x"
+
 alias rmd="rm *.d"
 
 alias lt='$(fc -ln -1) | less' # "less that".  Carefull, this can be dangerous because it executes the last command
