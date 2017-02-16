@@ -139,8 +139,10 @@ if [ -z $ZSH_NAME ]; then
             . /usr/share/bash-completion/bash_completion
         elif [ -f /etc/bash_completion ]; then
             . /etc/bash_completion
-        elif [ -f $(brew --prefix)/etc/bash_completion ]; then
-            source $(brew --prefix)/etc/bash_completion
+        elif type brew > /dev/null 2>&1; then
+            if [ -f $(brew --prefix)/etc/bash_completion ]; then
+                source $(brew --prefix)/etc/bash_completion
+            fi
         fi
 
         # if [ -f ~/.bash_completion ]; then
