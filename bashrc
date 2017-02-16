@@ -48,6 +48,9 @@ alias src="source ~/.bashrc"
 
 alias x="chmod +x"
 
+alias vj="vim +set\ ft=json"
+alias nvj="nvim +set\ ft=json"
+
 alias rmd="rm *.d"
 
 alias lt='$(fc -ln -1) | less' # "less that".  Carefull, this can be dangerous because it executes the last command
@@ -62,6 +65,7 @@ alias cs="cscope -b"
 alias pyclewn="pyclewn --window=bottom" # default arguments for pyclewn 
 alias ctags="ctags -R --c++-kinds=+lpx --fields=+amiS --extra=+q --totals --exclude=submit *.cxx *.h "
 alias grep="grep --color"
+alias htop="htop -u $(whoami)"
 
 
 
