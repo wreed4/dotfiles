@@ -96,15 +96,18 @@ _bash_history_sync() {
 if [ -z $ZSH_NAME ]; then
 
     _print_last_return() {
-        ret=$?
+        # ret=$?
+        ret=$1
         if [[ $ret != 0 ]]; then
             echo -e "[\[\e[0;31m\]$ret\[\e[0m\]]"
         fi
     }
 
     _make_prompt() {
-       PS1="\n\[\e[0;32m\]\u\[\e[0m\]@\[\e[1;35m\]\h\[\e[0m\]:\[\e[4;36m\]\w\[\e[0m\]  ~\d \@~\n$(_print_last_return)-> "
-       _bash_history_sync
+      ret=$?
+      export PS1="\n\[\033[38;5;37m\]\u\[$(tput sgr0)\]\[\033[38;5;15m\]@\[$(tput bold)\]\[$(tput sgr0)\]\[\033[38;5;72m\]\h\[$(tput sgr0)\]\[$(tput sgr0)\]\[\033[38;5;15m\]:\[$(tput sgr0)\]\[\033[38;5;87m\]\w\[$(tput sgr0)\]\[\033[38;5;15m\]  ~\d \@~\n$(_print_last_return $ret)-> \[$(tput sgr0)\]"
+      # PS1="\n\[\e[0;32m\]\u\[\e[0m\]@\[\e[1;35m\]\h\[\e[0m\]:\[\e[4;36m\]\w\[\e[0m\]  ~\d \@~\n$(_print_last_return)-> "
+      _bash_history_sync
     }
 
     PROMPT_COMMAND=_make_prompt
