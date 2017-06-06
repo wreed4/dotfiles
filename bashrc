@@ -134,6 +134,12 @@ mkcd () { mkdir -p "$1" && cd "$1"; }
 urlencode (){ python -c "import urllib, sys; print urllib.quote(sys.argv[1])" $1; }
 urldecode (){ python -c "import urllib, sys; print urllib.unquote(sys.argv[1])" $1; }
 
+wttr()
+{
+    # change Paris to your default location
+    curl -H "Accept-Language: ${LANG%_*}" wttr.in/"${1:-Boston}"
+}
+
 #}}}
 
 
