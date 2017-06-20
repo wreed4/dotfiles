@@ -38,10 +38,10 @@ fi
 # general
 alias ls="ls --color=auto --group-directories-first"
 alias la="ls -A"
-alias ll="ls -l"
-alias lal="ls -lA"
+alias ll="ls -lh"
+alias lal="ls -lAh"
 
-alias erc='$EDITOR ~/.bashrc'
+alias erc='$EDITOR ~/.dotfiles/bashrc'
 
 alias so="source"
 alias src="source ~/.bashrc"
