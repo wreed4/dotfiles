@@ -1,0 +1,114 @@
+from xonsh.proc import foreground, unthreadable
+from xonsh.pretty import pretty
+from xonsh.tools import print_color
+from xonsh.lazyimps import pygments, pyghooks
+
+#######################################################################
+#                              Functions                              #
+#######################################################################
+
+def _bash_it(args, stdin=None):
+    return $[bash -l -i -c @(' '.join(args))]
+
+def _fc(args, stdin=None):
+    index = -1
+    if len(args) == 1:
+        index = int(args[0])
+    if len(args) > 1:
+        raise TypeError('Got {} arguments. Expected 1'.format(len(args)))
+    cmd = __xonsh_history__.inps[index]
+
+    from click import edit
+    from shlex import split
+    new_cmd = edit(cmd)
+    if not new_cmd:
+        return
+    else:
+        completed_cmd = ![@(split(new_cmd))]
+        __xonsh_history__.append({'inp': new_cmd, 'rtn': completed_cmd.rtn, 'ts': completed_cmd.timestamp})
+        msg = "Executed as cmd #{}".format(len(__xonsh_history__) - 1)
+        print_color("{BACKGROUND_WHITE}{PURPLE}" + msg + "{NO_COLOR}")
+
+
+#######################################################################
+#                               Aliases                               #
+#######################################################################
+
+aliases['exrc'] = ['$EDITOR', '~/.xonshrc']
+aliases['sxrc'] = ['source', '~/.xonshrc']
+aliases['bashit'] = _bash_it
+aliases['fc'] = _fc
+aliases['htop'] = "htop -u wreed"
+aliases['nvj'] = 'nvim "+set ft=json"'
+aliases['ls'] = 'ls --color=auto --group-directories-first'
+
+#from xonsh.aliases import dirs as _dirs
+#aliases['dirs'] = "_dirs(['-v'])"
+
+#fix other
+def _mkcd(args, stdin=None):
+    if len(args) != 1:
+        raise TypeError('Got {} arguments. Expected 1'.format(len(args)))
+    mkdir -p @(args[0])
+    cd @(args[0])
+aliases['mkcd'] = _mkcd
+
+def _deldir(args, stdin=None):
+    if len(args) != 0:
+        raise TypeError('Got {} arguments. Expected 0'.format(len(args)))
+    cwd = $(pwd).strip()
+    cd ..
+    rm -r @(cwd)
+aliases['deldir'] = _deldir
+
+def _verbose_dirs(args, stdin=None):
+    from xonsh.dirstack import dirs as d
+    return d(['-v'] + args, stdin=stdin)
+aliases['dirs'] = _verbose_dirs
+
+aliases['pwd'] = "pwd -L"
+
+# fix history
+# from xonsh.aliases import history_main
+# aliases['history'] = history_main
+# del history_main
+
+def _venv(args, stdin=None):
+    """venv <python-version> <env-name>
+
+    Activate with `vox activate <env-name>`
+    """
+    from os import path
+
+    version, name = args
+    pyversion = $(which python3).strip()
+    venv_path = path.join(path.expanduser('~/.virtualenvs'), name)
+    print("Creating a virtualenv with Python %(version)s in %(venv_path)s" % locals())
+    virtualenv -p @(pyversion) @(venv_path)
+
+
+aliases['venv'] = _venv
+
+def _pp(args, stdin=None):
+    pval = str(__xonsh_shell__.shell.ctx[args[0]])
+    tokens = list(pygments.lex(pval, lexer=pyghooks.XonshLexer()))
+    print_color(tokens)
+
+#aliases['pp'] = lambda args, stdin=None: print_color($(@(args)))
+aliases['pp'] = _pp
+
+
+#######################################################################
+#                              Variables                              #
+#######################################################################
+
+$PROMPT_FIELDS['date'] = lambda: $(date "+%D %r").strip() 
+
+$PROMPT = '\n{ret_code_color}{ret_code}{NO_COLOR}{env_name}{INTENSE_BLUE}{user}{NO_COLOR}@{BOLD_YELLOW}{hostname}{NO_COLOR}:{UNDERLINE_INTENSE_CYAN}{short_cwd}{NO_COLOR} {branch_color}{curr_branch}{NO_COLOR}\n{INTENSE_GREEN}-->{NO_COLOR} '
+$RIGHT_PROMPT = '\n{BOLD_WHITE}* {date} *{NO_COLOR}'
+$XONSH_COLOR_STYLE = 'vim'
+
+$SUPPRESS_BRANCH_TIMEOUT_MESSAGE = True
+
+
+# vim:fdm=indent:ft=python:
