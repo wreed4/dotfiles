@@ -36,12 +36,12 @@ fi
 
 #{{{ ##### ALIASES ######
 # general
-alias ls="ls --color=auto --group-directories-first"
+ls --color=al > /dev/null 2>&1 && alias ls='ls --color=al' || alias ls='ls -G'  # compatibility between linux and mac
 alias la="ls -A"
 alias ll="ls -lh"
 alias lal="ls -lAh"
 
-alias erc='$EDITOR ~/.dotfiles/bashrc'
+alias erc='$EDITOR ~/bashrc'
 
 alias so="source"
 alias src="source ~/.bashrc"
