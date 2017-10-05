@@ -41,7 +41,7 @@ alias la="ls -A"
 alias ll="ls -lh"
 alias lal="ls -lAh"
 
-alias erc='$EDITOR ~/bashrc'
+alias erc='$EDITOR ~/.bashrc; src'
 
 alias so="source"
 alias src="source ~/.bashrc"
@@ -166,7 +166,7 @@ fi
 
 
 if [ -f ~/.bashrc_custom ]; then
-    alias ecrc='$EDITOR ~/.bashrc_custom'
+    alias ecrc='$EDITOR ~/.bashrc_custom; src'
     source ~/.bashrc_custom
 fi
 
