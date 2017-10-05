@@ -67,6 +67,11 @@ alias ctags="ctags -R --c++-kinds=+lpx --fields=+amiS --extra=+q --totals --excl
 alias grep="grep --color"
 alias htop="htop -u $(whoami)"
 
+# kill tmux 0 session
+alias k0="tmux kill-session -t 0"
+
+# open vim config
+alias evrc="$EDITOR +EditVimrc"
 
 
 #}}}
