@@ -10,7 +10,7 @@ stty -ixon
 
 #{{{ ###### VARIABLES ######
 
-export EDITOR=vim
+nvim --version > /dev/null 2>&1 && export EDITOR=nvim || export EDITOR=vim
 export DIFF=vimdiff
 export VISUAL=$EDITOR
 # if [[ ! $PATH =~ "$HOME/bin" ]]; then
