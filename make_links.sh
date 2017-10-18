@@ -1,9 +1,9 @@
 #!/bin/bash
 
-files=(bashrc tmux.conf xonshrc)
+files=(bashrc tmux.conf xonshrc gitconfig)
 
 for f in ${files[@]}; do
     echo ~/.$f "-->" $(pwd)/$f
-    mv ~/.$f ~/$f.old
+    [[ -f ~/.$f ]] && mv ~/.$f ~/$f.old
     ln -s $(pwd)/$f ~/.$f
 done

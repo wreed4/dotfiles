@@ -1,0 +1,12 @@
+# This is Git's per-user configuration file.
+[user]
+# Please adapt and uncomment the following lines:
+	name = William Reed
+	email = willie.b.reed@gmail.com
+[diff]
+	tool = nvim
+[difftool "nvim"]
+	cmd = nvim -d $LOCAL $MERGED
+
+[alias]
+    tree = log --graph --decorate --pretty=oneline --abbrev-commit
