@@ -66,6 +66,7 @@ alias pyclewn="pyclewn --window=bottom" # default arguments for pyclewn
 alias ctags="ctags -R --c++-kinds=+lpx --fields=+amiS --extra=+q --totals --exclude=submit *.cxx *.h "
 alias grep="grep --color"
 alias htop="htop -u $(whoami)"
+alias less="less -r"
 
 # kill tmux 0 session
 alias k0="tmux kill-session -t 0"
@@ -145,6 +146,21 @@ wttr()
     curl -H "Accept-Language: ${LANG%_*}" wttr.in/"${1:-Boston}"
 }
 
+cdrm()
+{
+  dir=$(pwd)
+  cd ..
+  rmdir $dir
+}
+
+etrc()
+{
+  $EDITOR ~/.tmux.conf
+  if [[ -n ${TMUX+x} ]]; then
+    tmux source ~/.tmux.conf
+  fi
+}
+
 #}}}
 
 
@@ -157,6 +173,8 @@ if [ -z $ZSH_NAME ]; then
             . /usr/share/bash-completion/bash_completion
         elif [ -f /etc/bash_completion ]; then
             . /etc/bash_completion
+        elif [ -f /usr/local/etc/bash_completion ]; then
+            . /usr/local/etc/bash_completion
         elif type brew > /dev/null 2>&1; then
             if [ -f $(brew --prefix)/etc/bash_completion ]; then
                 source $(brew --prefix)/etc/bash_completion
