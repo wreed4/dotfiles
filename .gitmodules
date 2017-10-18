@@ -1,3 +1,4 @@
 [submodule "vim"]
 	path = vim
 	url = git@github.com:wreed4/vimrc.git
+	branch = master
