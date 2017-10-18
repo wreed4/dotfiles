@@ -7,7 +7,7 @@ Included files
 
 ## INSTALL 
 ```bash
-git clone https://github.com/wreed4/dotfiles.git ~/.dotfiles
+git clone --recurse-submodules git@github.com:wreed4/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
 ./install.sh
 ```
