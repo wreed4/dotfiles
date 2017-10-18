@@ -9,6 +9,6 @@ Included files
 ```bash
 git clone https://github.com/wreed4/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
-./make_links.sh
+./install.sh
 ```
 
