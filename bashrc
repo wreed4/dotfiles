@@ -3,7 +3,7 @@
 
 #{{{ ###### SETTINGS ######
 # set vim key bindings
-#set -o vi
+# set -o vi
 
 stty -ixon
 #}}}
@@ -102,18 +102,34 @@ _bash_history_sync() {
 #{{{ ##### Custom Prompt #####
 if [ -z $ZSH_NAME ]; then
 
+    show_colors() {
+      for i in $(seq 0 $(tput colors) ) ; do 
+        tput setaf $i 
+        echo -n "($i) " 
+      done 
+      tput setaf 15 
+      echo
+    }
+
+    LIGHT_BLUE="\[$(tput setaf 37)\]"
+    WHITE="\[$(tput setaf 15)\]"
+    LIGHT_GREEN="\[$(tput setaf 72)\]"
+    CYAN="\[$(tput setaf 87)\]"
+    RED="\[$(tput setaf 1)\]"
+    RESET="\[$(tput sgr0)\]"
+
     _print_last_return() {
         # ret=$?
         ret=$1
         if [[ $ret != 0 ]]; then
-            echo -e "[\[\e[0;31m\]$ret\[\e[0m\]]"
+            # echo -e "[\[\e[0;31m\]$ret\[\e[0m\]]"
+            echo -e "${WHITE}[${RED}$ret${WHITE}]"
         fi
     }
 
     _make_prompt() {
       ret=$?
-      export PS1="\n\[\033[38;5;37m\]\u\[$(tput sgr0)\]\[\033[38;5;15m\]@\[$(tput bold)\]\[$(tput sgr0)\]\[\033[38;5;72m\]\h\[$(tput sgr0)\]\[$(tput sgr0)\]\[\033[38;5;15m\]:\[$(tput sgr0)\]\[\033[38;5;87m\]\w\[$(tput sgr0)\]\[\033[38;5;15m\]  ~\d \@~\n$(_print_last_return $ret)-> \[$(tput sgr0)\]"
-      # PS1="\n\[\e[0;32m\]\u\[\e[0m\]@\[\e[1;35m\]\h\[\e[0m\]:\[\e[4;36m\]\w\[\e[0m\]  ~\d \@~\n$(_print_last_return)-> "
+      export PS1="\n${LIGHT_BLUE}\u${WHITE}@${LIGHT_GREEN}\h${WHITE}:${CYAN}\w ${WHITE}~\d \@~ $(_print_last_return $ret)\n${WHITE}-> ${RESET}"
       _bash_history_sync
     }
 
