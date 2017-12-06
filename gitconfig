@@ -13,3 +13,7 @@
     br = branch -vv
 [status]
 	submodulesummary = 1
+[credential]
+	helper = store
+[url "git@github.com:"]
+	insteadOf = https://github.com/
