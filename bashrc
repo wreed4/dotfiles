@@ -75,7 +75,7 @@ alias gt='git tree'
 alias tmux="tmux -u"
 # alias ssh="ssh -XC"
 alias cs="cscope -b"
-alias pyclewn="pyclewn --window=bottom" # default arguments for pyclewn 
+alias pyclewn="pyclewn --window=bottom" # default arguments for pyclewn
 alias ctags="ctags -R --c++-kinds=+lpx --fields=+amiS --extra=+q --totals --exclude=submit *.cxx *.h "
 alias grep="grep --color"
 alias htop="htop -u $(whoami)"
@@ -116,11 +116,11 @@ _bash_history_sync() {
 if [ -z $ZSH_NAME ]; then
 
     show_colors() {
-      for i in $(seq 0 $(tput colors) ) ; do 
-        tput setaf $i 
-        echo -n "($i) " 
-      done 
-      tput setaf 15 
+      for i in $(seq 0 $(tput colors) ) ; do
+        tput setaf $i
+        echo -n "($i) "
+      done
+      tput setaf 15
       echo
     }
 
