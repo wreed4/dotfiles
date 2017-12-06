@@ -36,10 +36,21 @@ fi
 
 #{{{ ##### ALIASES ######
 # general
-ls --color=al > /dev/null 2>&1 && alias ls='ls --color=al' || alias ls='ls -G'  # compatibility between linux and mac
-alias la="ls -A"
-alias ll="ls -lh"
-alias lal="ls -lAh"
+if $(type exa > /dev/null 2>&1); then
+  # use exa as a replacement for ls and tree
+  alias exa="exa --color-scale --group-directories-first --level=3"
+  alias ls="exa"
+  alias la="exa -a"
+  alias ll="exa -lhmU --git"
+  alias lal="ll -a"
+  alias t="exa --tree"
+  alias tl="ll --tree"
+else
+  ls --color=auto > /dev/null 2>&1 && alias ls='ls --color=auto' || alias ls='ls -G'  # compatibility between linux and mac
+  alias la="ls -A"
+  alias ll="ls -lh"
+  alias lal="ls -lAh"
+fi
 
 alias erc='$EDITOR ~/.bashrc; src'
 
@@ -56,7 +67,9 @@ alias rmd="rm *.d"
 alias lt='$(fc -ln -1) | less' # "less that".  Carefull, this can be dangerous because it executes the last command
 
 alias gst='git status'
+alias gd='git diff'
 alias gdiff='git difftool'
+alias gt='git tree'
 
 # default flags
 alias tmux="tmux -u"
@@ -213,3 +226,6 @@ fi
 # vim:foldmethod=marker:foldlevel=0:
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# autojump sourcing
+[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
