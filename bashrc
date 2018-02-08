@@ -52,6 +52,14 @@ else
   alias lal="ls -lAh"
 fi
 
+alias cd..="cd .."
+alias cd...="cd ../.."
+alias cd....="cd ../../.."
+alias cd.....="cd ../../../.."
+alias cd......="cd ../../../../.."
+alias cd.......="cd ../../../../../.."
+alias cd........="cd ../../../../../../.."
+
 alias erc='$EDITOR ~/.bashrc; src'
 
 alias so="source"
@@ -69,7 +77,8 @@ alias lt='$(fc -ln -1) | less' # "less that".  Carefull, this can be dangerous b
 alias gst='git status'
 alias gd='git diff'
 alias gdiff='git difftool'
-alias gt='git tree'
+alias gt='git tree --color'
+alias gta='git tree --all --color'
 
 # default flags
 alias tmux="tmux -u"
@@ -81,6 +90,7 @@ alias grep="grep --color"
 alias htop="htop -u $(whoami)"
 alias less="less -r"
 alias tree="tree -C"
+alias watch="watch -c "
 
 # kill tmux 0 session
 alias k0="tmux kill-session -t 0"
@@ -105,8 +115,8 @@ history() {
 _bash_history_sync() {
   builtin history -a         #1
   HISTFILESIZE=$HISTSIZE     #2
-  builtin history -c         #3
-  builtin history -r         #4
+  # builtin history -c         #3
+  builtin history -n         #4
 }
 
 
@@ -191,6 +201,20 @@ etrc()
   fi
 }
 
+# Codi
+# Usage: codi [filetype] [filename]
+codi() {
+  local syntax="${1:-python}"
+  shift
+  nvim -c \
+    "let g:startify_disable_at_vimenter = 1 |\
+    set bt=nofile ls=0 noru nonu nornu |\
+    hi ColorColumn ctermbg=NONE |\
+    hi VertSplit ctermbg=NONE |\
+    hi NonText ctermfg=0 |\
+    Codi $syntax" "$@"
+}
+
 #}}}
 
 
@@ -223,9 +247,10 @@ if [ -f ~/.bashrc_custom ]; then
     source ~/.bashrc_custom
 fi
 
-# vim:foldmethod=marker:foldlevel=0:
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 # autojump sourcing
 [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
+
+# vim:foldmethod=marker:foldlevel=0:
