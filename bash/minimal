@@ -35,6 +35,19 @@ alias gst='git status'
 alias gd='git diff'
 
 alias grep="grep --color"
+
+alias dr='docker run'
+alias dri='docker run -it'
+alias drm='docker rm $(docker ps -a -f status=exited -q)'
+alias dps='docker ps'
+alias dpa='docker ps -a'
+alias dsp='docker system prune'
+alias dcp='docker container prune'
+alias dka='docker kill $(docker ps -q)'
+dexec () { docker exec -it $1 /bin/bash; }
+dexecc () { docker exec -it $1 $2; }
+
+
 #}}}
 
 # {{{ ##### FUNCTIONS #####
