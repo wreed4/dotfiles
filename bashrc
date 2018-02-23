@@ -1,6 +1,8 @@
 # Willie Reed
 # bash config
 
+source ~/.dotfiles/bash/minimal
+
 #{{{ ###### SETTINGS ######
 # set vim key bindings
 # set -o vi
@@ -10,12 +12,8 @@ stty -ixon
 
 #{{{ ###### VARIABLES ######
 
-nvim --version > /dev/null 2>&1 && export EDITOR=nvim || export EDITOR=vim
 export DIFF=vimdiff
 export VISUAL=$EDITOR
-# if [[ ! $PATH =~ "$HOME/bin" ]]; then
-export PATH=$HOME/bin:$PATH
-# fi
 #export TERM=xterm-256color-italic
 if [ "$TERM" == "xterm" ]; then
     export TERM=xterm-256color
@@ -45,37 +43,13 @@ if $(type exa > /dev/null 2>&1); then
   alias lal="ll -a"
   alias t="exa --tree"
   alias tl="ll --tree"
-else
-  ls --color=auto > /dev/null 2>&1 && alias ls='ls --color=auto' || alias ls='ls -G'  # compatibility between linux and mac
-  alias la="ls -A"
-  alias ll="ls -lh"
-  alias lal="ls -lAh"
 fi
-
-alias cd..="cd .."
-alias cd...="cd ../.."
-alias cd....="cd ../../.."
-alias cd.....="cd ../../../.."
-alias cd......="cd ../../../../.."
-alias cd.......="cd ../../../../../.."
-alias cd........="cd ../../../../../../.."
-
-alias erc='$EDITOR ~/.bashrc; src'
-
-alias so="source"
-alias src="source ~/.bashrc"
-
-alias x="chmod +x"
 
 alias vj="vim +set\ ft=json"
 alias nvj="nvim +set\ ft=json"
 
 alias rmd="rm *.d"
 
-alias lt='$(fc -ln -1) | less' # "less that".  Carefull, this can be dangerous because it executes the last command
-
-alias gst='git status'
-alias gd='git diff'
 alias gdiff='git difftool'
 alias gt='git tree --color'
 alias gta='git tree --all --color'
@@ -83,14 +57,11 @@ alias gta='git tree --all --color'
 # default flags
 alias tmux="tmux -u"
 # alias ssh="ssh -XC"
-alias cs="cscope -b"
-alias pyclewn="pyclewn --window=bottom" # default arguments for pyclewn
-alias ctags="ctags -R --c++-kinds=+lpx --fields=+amiS --extra=+q --totals --exclude=submit *.cxx *.h "
-alias grep="grep --color"
 alias htop="htop -u $(whoami)"
 alias less="less -r"
 alias tree="tree -C"
 alias watch="watch -c "
+alias diff="diff --color=always "
 
 # kill tmux 0 session
 alias k0="tmux kill-session -t 0"
@@ -175,8 +146,6 @@ fi
 
 #"{{{##### FUNCTIONS #####
 
-mkcd () { mkdir -p "$1" && cd "$1"; }
-
 urlencode (){ python -c "import urllib, sys; print urllib.quote(sys.argv[1])" $1; }
 urldecode (){ python -c "import urllib, sys; print urllib.unquote(sys.argv[1])" $1; }
 
@@ -184,13 +153,6 @@ wttr()
 {
     # change Paris to your default location
     curl -H "Accept-Language: ${LANG%_*}" wttr.in/"${1:-Boston}"
-}
-
-cdrm()
-{
-  dir=$(pwd)
-  cd ..
-  rmdir $dir
 }
 
 etrc()
@@ -241,16 +203,14 @@ if [ -z $ZSH_NAME ]; then
     fi
 fi
 
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# autojump sourcing
+[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
 
 if [ -f ~/.bashrc_custom ]; then
     alias ecrc='$EDITOR ~/.bashrc_custom; src'
     source ~/.bashrc_custom
 fi
-
-
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-
-# autojump sourcing
-[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
 
 # vim:foldmethod=marker:foldlevel=0:

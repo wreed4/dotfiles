@@ -1,0 +1,54 @@
+# minimal bash config
+
+#{{{ ###### VARIABLES ######
+
+nvim --version > /dev/null 2>&1 && export EDITOR=nvim || export EDITOR=vim
+
+export VISUAL=$EDITOR
+export PATH=$HOME/bin:$PATH
+#}}}
+
+#{{{ ##### ALIASES #####
+ls --color=auto > /dev/null 2>&1 && alias ls='ls --color=auto' || alias ls='ls -G'  # compatibility between linux and mac
+alias la="ls -A"
+alias ll="ls -lh"
+alias lal="ls -lAh"
+
+alias cd..="cd .."
+alias cd...="cd ../.."
+alias cd....="cd ../../.."
+alias cd.....="cd ../../../.."
+alias cd......="cd ../../../../.."
+alias cd.......="cd ../../../../../.."
+alias cd........="cd ../../../../../../.."
+
+alias erc='$EDITOR ~/.bashrc; src'
+
+alias so="source"
+alias src="source ~/.bashrc"
+
+alias x="chmod +x"
+
+alias lt='$(fc -ln -1) | less' # "less that".  Carefull, this can be dangerous because it executes the last command
+
+alias gst='git status'
+alias gd='git diff'
+
+alias grep="grep --color"
+#}}}
+
+# {{{ ##### FUNCTIONS #####
+
+mkcd () { mkdir -p "$1" && cd "$1"; }
+
+cdrm()
+{
+  dir=$(pwd)
+  cd ..
+  rmdir $dir
+}
+
+# }}}
+
+
+# vim:foldmethod=marker:foldlevel=0:ft=sh
