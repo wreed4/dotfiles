@@ -79,11 +79,11 @@ HISTFILESIZE=$HISTSIZE
 HISTCONTROL=ignorespace:ignoredups
 
 history() {
-  _bash_history_sync
+  sync_history
   builtin history "$@"
 }
 
-_bash_history_sync() {
+sync_history() {
   builtin history -a         #1
   HISTFILESIZE=$HISTSIZE     #2
   # builtin history -c         #3
@@ -105,29 +105,28 @@ if [ -z $ZSH_NAME ]; then
       echo
     }
 
-    LIGHT_BLUE="\[$(tput setaf 37)\]"
-    WHITE="\[$(tput setaf 15)\]"
-    LIGHT_GREEN="\[$(tput setaf 72)\]"
-    CYAN="\[$(tput setaf 87)\]"
-    RED="\[$(tput setaf 1)\]"
-    RESET="\[$(tput sgr0)\]"
+    LIGHT_BLUE="$(tput setaf 37)"
+    WHITE="$(tput setaf 15)"
+    LIGHT_GREEN="$(tput setaf 72)"
+    CYAN="$(tput setaf 87)"
+    RED="$(tput setaf 1)"
+    RESET="$(tput sgr0)"
 
     _print_last_return() {
         # ret=$?
         ret=$1
         if [[ $ret != 0 ]]; then
-            # echo -e "[\[\e[0;31m\]$ret\[\e[0m\]]"
-            echo -e "${WHITE}[${RED}$ret${WHITE}]"
+          echo -e -n "${WHITE}[${RED}$ret${WHITE}]"
         fi
     }
 
     _make_prompt() {
-      ret=$?
-      export PS1="\n${LIGHT_BLUE}\u${WHITE}@${LIGHT_GREEN}\h${WHITE}:${CYAN}\w ${WHITE}~\d \@~ $(_print_last_return $ret)\n${WHITE}-> ${RESET}"
-      _bash_history_sync
+      echo -e ''
+      sync_history
     }
 
     PROMPT_COMMAND=_make_prompt
+    export PS1="\[${LIGHT_BLUE}\]\u\[${WHITE}\]@\[${LIGHT_GREEN}\]\h\[${WHITE}\]:\[${CYAN}\]\w \[${WHITE}\]~\d \@~ \$(_print_last_return \$?) \n\[${WHITE}\]-> \[${RESET}\]"
 
     # if [[ -f "$(brew --prefix bash-git-prompt)/share/gitprompt.sh" ]]; then
         # GIT_PROMPT_START="\n\e[0;32m\u\e[0m@\e[1;35m\h\e[0m:\e[4;36m\w\e[0m"
