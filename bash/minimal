@@ -14,13 +14,14 @@ alias la="ls -A"
 alias ll="ls -lh"
 alias lal="ls -lAh"
 
-alias cd..="cd .."
-alias cd...="cd ../.."
-alias cd....="cd ../../.."
-alias cd.....="cd ../../../.."
-alias cd......="cd ../../../../.."
-alias cd.......="cd ../../../../../.."
-alias cd........="cd ../../../../../../.."
+alias cd.="cd .."
+alias cd..="cd ../.."
+alias cd...="cd ../../.."
+alias cd....="cd ../../../.."
+alias cd.....="cd ../../../../.."
+alias cd......="cd ../../../../../.."
+alias cd.......="cd ../../../../../../.."
+alias cd........="cd ../../../../../../../.."
 
 alias erc='$EDITOR ~/.bashrc; src'
 
@@ -33,6 +34,7 @@ alias lt='$(fc -ln -1) | less' # "less that".  Carefull, this can be dangerous b
 
 alias gst='git status'
 alias gd='git diff'
+alias gco='git checkout'
 
 alias grep="grep --color"
 

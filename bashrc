@@ -30,6 +30,10 @@ if [[ -d ~/.linuxbrew ]]; then #&& ! $PATH =~ "linuxbrew" ]]; then
     export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
 fi
 
+if [[ -d ~/.cargo ]]; then
+  export PATH="$HOME/.cargo/bin:$PATH"
+fi
+
 #}}}
 
 #{{{ ##### ALIASES ######
@@ -65,6 +69,9 @@ alias diff="diff --color=always "
 
 # kill tmux 0 session
 alias k0="tmux kill-session -t 0"
+
+# pipenv/python aliases
+alias psh="pipenv shell --fancy"
 
 # open vim config
 alias evrc="$EDITOR +EditVimrc"
@@ -110,23 +117,39 @@ if [ -z $ZSH_NAME ]; then
     LIGHT_GREEN="$(tput setaf 72)"
     CYAN="$(tput setaf 87)"
     RED="$(tput setaf 1)"
+    LIGHT_PURPLE="$(tput setaf 200)"
     RESET="$(tput sgr0)"
+
+    _print_virtualenv() {
+      # Get Virtual Env
+      if [[ $VIRTUAL_ENV != "" ]]
+      then
+        # Strip out the path and just leave the env name
+        venv="${LIGHT_PURPLE}(${VIRTUAL_ENV##*/})${RESET} "
+      else
+        # In case you don't have one activated
+        venv=''
+      fi
+
+      echo -e -n "$venv"
+    }
 
     _print_last_return() {
         # ret=$?
-        ret=$1
+        ret=$last_ret
         if [[ $ret != 0 ]]; then
           echo -e -n "${WHITE}[${RED}$ret${WHITE}]"
         fi
     }
 
     _make_prompt() {
+      last_ret=$?
       echo -e ''
       sync_history
     }
 
     PROMPT_COMMAND=_make_prompt
-    export PS1="\[${LIGHT_BLUE}\]\u\[${WHITE}\]@\[${LIGHT_GREEN}\]\h\[${WHITE}\]:\[${CYAN}\]\w \[${WHITE}\]~\d \@~ \$(_print_last_return \$?) \n\[${WHITE}\]-> \[${RESET}\]"
+    export PS1="\[\$(_print_virtualenv)${LIGHT_BLUE}\]\u\[${WHITE}\]@\[${LIGHT_GREEN}\]\h\[${WHITE}\]:\[${CYAN}\]\w \[${WHITE}\]~\d \@~ \$(_print_last_return) \n\[${WHITE}\]-> \[${RESET}\]"
 
     # if [[ -f "$(brew --prefix bash-git-prompt)/share/gitprompt.sh" ]]; then
         # GIT_PROMPT_START="\n\e[0;32m\u\e[0m@\e[1;35m\h\e[0m:\e[4;36m\w\e[0m"
@@ -206,6 +229,7 @@ fi
 
 # autojump sourcing
 [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
+[ -f /usr/share/autojump/autojump.sh ] && . /usr/share/autojump/autojump.sh
 
 if [ -f ~/.bashrc_custom ]; then
     alias ecrc='$EDITOR ~/.bashrc_custom; src'
