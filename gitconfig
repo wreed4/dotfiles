@@ -11,6 +11,8 @@
 [alias]
     tree = log --graph --decorate --pretty=oneline --abbrev-commit
     br = branch -vv
+    co = checkout
+    s = status
 [status]
 	submodulesummary = 1
 [credential]
