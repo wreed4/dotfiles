@@ -46,9 +46,7 @@ alias dpa='docker ps -a'
 alias dsp='docker system prune'
 alias dcp='docker container prune'
 alias dka='docker kill $(docker ps -q)'
-dexec () { docker exec -it $1 /bin/bash; }
-dexecc () { docker exec -it $1 $2; }
-
+dexec () { docker exec -it $1 ${2:-/bin/bash};}
 
 #}}}
 

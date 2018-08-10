@@ -8,6 +8,7 @@ source ~/.dotfiles/bash/minimal
 # set -o vi
 
 stty -ixon
+shopt -s globstar
 #}}}
 
 #{{{ ###### VARIABLES ######
@@ -40,13 +41,14 @@ fi
 # general
 if $(type exa > /dev/null 2>&1); then
   # use exa as a replacement for ls and tree
-  alias exa="exa --color-scale --group-directories-first --level=3"
+  alias exa="exa --color-scale --group-directories-first --level=3 --color=always"
   alias ls="exa"
   alias la="exa -a"
   alias ll="exa -lhmU --git"
   alias lal="ll -a"
   alias t="exa --tree"
   alias tl="ll --tree"
+  alias tg="tl --git-ignore"
 fi
 
 alias vj="vim +set\ ft=json"
@@ -54,7 +56,7 @@ alias nvj="nvim +set\ ft=json"
 
 alias rmd="rm *.d"
 
-alias gdiff='git difftool'
+alias gdiff='git difftool -y'
 alias gt='git tree --color'
 alias gta='git tree --all --color'
 
@@ -148,7 +150,13 @@ if [ -z $ZSH_NAME ]; then
       sync_history
     }
 
-    PROMPT_COMMAND=_make_prompt
+    _saveTmuxSessionsWithContinuum() {
+        if [ -n "$TMUX" ]; then
+           $HOME/.tmux/plugins/tmux-continuum/scripts/continuum_save.sh
+        fi
+    }
+
+    PROMPT_COMMAND="_make_prompt; _saveTmuxSessionsWithContinuum"
     export PS1="\[\$(_print_virtualenv)${LIGHT_BLUE}\]\u\[${WHITE}\]@\[${LIGHT_GREEN}\]\h\[${WHITE}\]:\[${CYAN}\]\w \[${WHITE}\]~\d \@~ \$(_print_last_return) \n\[${WHITE}\]-> \[${RESET}\]"
 
     # if [[ -f "$(brew --prefix bash-git-prompt)/share/gitprompt.sh" ]]; then
@@ -168,8 +176,8 @@ fi
 
 #"{{{##### FUNCTIONS #####
 
-urlencode (){ python -c "import urllib, sys; print urllib.quote(sys.argv[1])" $1; }
-urldecode (){ python -c "import urllib, sys; print urllib.unquote(sys.argv[1])" $1; }
+urlencode (){ python -c "import urllib, sys; print(urllib.quote(sys.argv[1]))" $1; }
+urldecode (){ python -c "import urllib, sys; print(urllib.unquote(sys.argv[1]))" $1; }
 
 wttr()
 {
@@ -198,6 +206,13 @@ codi() {
     hi NonText ctermfg=0 |\
     Codi $syntax" "$@"
 }
+
+ge() { $EDITOR $1; }
+_ge() { 
+  local cur=${COMP_WORDS[COMP_CWORD]}
+  COMPREPLY=( $(compgen -W "$(git status --short | awk '{print $2}')" -- $cur) )
+}
+complete -F _ge ge
 
 #}}}
 
