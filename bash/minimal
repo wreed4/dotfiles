@@ -2,10 +2,11 @@
 
 #{{{ ###### VARIABLES ######
 
+export PATH=$HOME/bin:$PATH
 nvim --version > /dev/null 2>&1 && export EDITOR=nvim || export EDITOR=vim
 
 export VISUAL=$EDITOR
-export PATH=$HOME/bin:$PATH
+
 #}}}
 
 #{{{ ##### ALIASES #####
@@ -61,7 +62,34 @@ cdrm()
   rmdir $dir
 }
 
+show_colors() {
+  for i in $(seq 0 $(tput colors) ) ; do
+    tput setaf $i
+    echo -n "($i) "
+  done
+  tput setaf 15
+  echo
+}
+
 # }}}
 
+# {{{ ##### CUSTOM PROMPT #####
+
+LIGHT_BLUE="$(tput setaf 37)"
+BLUE="$(tput setaf 4)"
+WHITE="$(tput setaf 15)"
+DEFAULT_WHITE="$(tput setaf 7)"
+LIGHT_GREEN="$(tput setaf 72)"
+GREEN="$(tput setaf 2)"
+CYAN="$(tput setaf 87)"
+DEFAULT_CYAN="$(tput setaf 6)"
+RED="$(tput setaf 1)"
+LIGHT_PURPLE="$(tput setaf 200)"
+PURPLE="$(tput setaf 5)"
+RESET="$(tput sgr0)"
+
+export PS1="\[${BLUE}\]\u\[${DEFAULT_WHITE}\]@\[${GREEN}\]\h\[${DEFAULT_WHITE}\]:\[${DEFAULT_CYAN}\]\w \[${DEFAULT_WHITE}\]~\d \@~ \n\[${DEFAULT_WHITE}\]-> \[${RESET}\]"
+
+# }}}
 
 # vim:foldmethod=marker:foldlevel=0:ft=sh

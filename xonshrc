@@ -1,0 +1,16 @@
+# XONSH WIZARD START
+$XONSH_SHOW_TRACEBACK=True
+$AUTO_PUSHD = '1'
+$AUTO_SUGGEST_IN_COMPLETIONS = ''
+$CDPATH = ('~/Documents/sitefactory-build/sfng')
+$COMPLETION_QUERY_LIMIT = '150'
+$DYNAMIC_CWD_WIDTH = '30.0%'
+$HISTCONTROL = {'ignoredups'}
+$PATH = ['/home/william/.pyenv/versions/3.6.3/bin', '/home/william/.pyenv/libexec', '/home/william/.pyenv/plugins/python-build/bin', '/home/william/.pyenv/plugins/pyenv-virtualenv/bin', '/home/william/.pyenv/plugins/pyenv-update/bin', '/home/william/.pyenv/plugins/pyenv-installer/bin', '/home/william/.pyenv/plugins/pyenv-doctor/bin', '/home/william/.rbenv/shims', '/home/william/.pyenv/plugins/pyenv-virtualenv/shims', '/home/william/.pyenv/shims', '/home/william/go/bin', '/home/william/.rbenv', '/home/william/.pyenv/bin', '/home/william/.cargo/bin', '/home/william/bin', '/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin', '/usr/games', '/usr/local/games', '/snap/bin', '/home/william/.fzf/bin']
+$PUSHD_SILENT = '1'
+$VI_MODE = '1'
+$XONSH_AUTOPAIR = '1'
+$XONSH_STORE_STDIN = '1'
+source-bash --sourcer source "echo loading xonsh foreign shell"
+# xontrib load apt_tabcomplete autoxsh bashisms docker_tabcomplete jedi mpl prompt_ret_code prompt_vi_mode fzf-widgets schedule
+# XONSH WIZARD END

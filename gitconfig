@@ -7,6 +7,10 @@
 	tool = nvim
 [difftool "nvim"]
 	cmd = nvim -d $LOCAL $MERGED
+[merge]
+	tool = nvim
+[mergetool "nvim"]
+	cmd = nvim -d $LOCAL $BASE $REMOTE -c \":botright split $MERGED\"
 
 [alias]
     tree = log --graph --decorate --pretty=oneline --abbrev-commit

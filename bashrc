@@ -15,6 +15,7 @@ shopt -s globstar
 
 export DIFF=vimdiff
 export VISUAL=$EDITOR
+export PIPENV_MAX_DEPTH=5
 #export TERM=xterm-256color-italic
 if [ "$TERM" == "xterm" ]; then
     export TERM=xterm-256color
@@ -35,6 +36,15 @@ if [[ -d ~/.cargo ]]; then
   export PATH="$HOME/.cargo/bin:$PATH"
 fi
 
+if [[ -d ~/pymodules ]]; then
+  export PYTHONPATH="$HOME/pymodules:$PYTHONPATH"
+fi
+
+if $(type fd > /dev/null 2>&1); then
+  export FZF_DEFAULT_COMMAND='fd --type file --follow --hidden --exclude .git --color=always'
+  export FZF_DEFAULT_OPTS="--ansi"
+fi
+
 #}}}
 
 #{{{ ##### ALIASES ######
@@ -46,13 +56,18 @@ if $(type exa > /dev/null 2>&1); then
   alias la="exa -a"
   alias ll="exa -lhmU --git"
   alias lal="ll -a"
-  alias t="exa --tree"
+  alias tree="exa --tree"
+  alias tt="exa --tree"
   alias tl="ll --tree"
   alias tg="tl --git-ignore"
 fi
 
 alias vj="vim +set\ ft=json"
 alias nvj="nvim +set\ ft=json"
+alias nviml="nvim +\'0"
+nvims(){
+  nvim -q <(ag "$1")
+}
 
 alias rmd="rm *.d"
 
@@ -74,10 +89,13 @@ alias k0="tmux kill-session -t 0"
 
 # pipenv/python aliases
 alias psh="pipenv shell --fancy"
+alias pr="pipenv run"
 
 # open vim config
 alias evrc="$EDITOR +EditVimrc"
 
+alias t="task"
+alias k="kubectl "
 
 #}}}
 
@@ -104,23 +122,6 @@ sync_history() {
 
 #{{{ ##### Custom Prompt #####
 if [ -z $ZSH_NAME ]; then
-
-    show_colors() {
-      for i in $(seq 0 $(tput colors) ) ; do
-        tput setaf $i
-        echo -n "($i) "
-      done
-      tput setaf 15
-      echo
-    }
-
-    LIGHT_BLUE="$(tput setaf 37)"
-    WHITE="$(tput setaf 15)"
-    LIGHT_GREEN="$(tput setaf 72)"
-    CYAN="$(tput setaf 87)"
-    RED="$(tput setaf 1)"
-    LIGHT_PURPLE="$(tput setaf 200)"
-    RESET="$(tput sgr0)"
 
     _print_virtualenv() {
       # Get Virtual Env
@@ -176,8 +177,8 @@ fi
 
 #"{{{##### FUNCTIONS #####
 
-urlencode (){ python -c "import urllib, sys; print(urllib.quote(sys.argv[1]))" $1; }
-urldecode (){ python -c "import urllib, sys; print(urllib.unquote(sys.argv[1]))" $1; }
+urlencode (){ python -c "from urllib.parse import quote; print(quote('$1'))"; };
+urldecode (){ python -c "from urllib.parse import unquote; print(unquote('$1'))"; }
 
 wttr()
 {
@@ -208,7 +209,7 @@ codi() {
 }
 
 ge() { $EDITOR $1; }
-_ge() { 
+_ge() {
   local cur=${COMP_WORDS[COMP_CWORD]}
   COMPREPLY=( $(compgen -W "$(git status --short | awk '{print $2}')" -- $cur) )
 }
@@ -240,7 +241,6 @@ if [ -z $ZSH_NAME ]; then
     fi
 fi
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 # autojump sourcing
 [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
@@ -252,3 +252,8 @@ if [ -f ~/.bashrc_custom ]; then
 fi
 
 # vim:foldmethod=marker:foldlevel=0:
+
+# added by travis gem
+[ -f /home/william/.travis/travis.sh ] && source /home/william/.travis/travis.sh
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
