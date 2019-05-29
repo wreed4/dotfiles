@@ -1,3 +1,4 @@
+# vim:foldmethod=marker:foldlevel=0:
 # Willie Reed
 # bash config
 
@@ -15,6 +16,7 @@ shopt -s globstar
 
 export DIFF=vimdiff
 export VISUAL=$EDITOR
+export PYTHONBREAKPOINT=ipdb.set_trace
 export PIPENV_MAX_DEPTH=5
 #export TERM=xterm-256color-italic
 if [ "$TERM" == "xterm" ]; then
@@ -95,7 +97,7 @@ alias pr="pipenv run"
 alias evrc="$EDITOR +EditVimrc"
 
 alias t="task"
-alias k="kubectl "
+alias saws="~/.pyenv/versions/saws/bin/saws"
 
 #}}}
 
@@ -250,8 +252,6 @@ if [ -f ~/.bashrc_custom ]; then
     alias ecrc='$EDITOR ~/.bashrc_custom; src'
     source ~/.bashrc_custom
 fi
-
-# vim:foldmethod=marker:foldlevel=0:
 
 # added by travis gem
 [ -f /home/william/.travis/travis.sh ] && source /home/william/.travis/travis.sh
