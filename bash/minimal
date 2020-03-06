@@ -1,13 +1,24 @@
 # minimal bash config
 
-#{{{ ###### VARIABLES ######
+# {{{ ##### CUSTOM PROMPT #####
 
-export PATH=$HOME/bin:$PATH
-nvim --version > /dev/null 2>&1 && export EDITOR=nvim || export EDITOR=vim
+LIGHT_BLUE="$(tput setaf 37)"
+BLUE="$(tput setaf 4)"
+WHITE="$(tput setaf 15)"
+DEFAULT_WHITE="$(tput setaf 7)"
+LIGHT_GREEN="$(tput setaf 72)"
+GREEN="$(tput setaf 2)"
+CYAN="$(tput setaf 87)"
+DEFAULT_CYAN="$(tput setaf 6)"
+RED="$(tput setaf 1)"
+LIGHT_PURPLE="$(tput setaf 200)"
+PURPLE="$(tput setaf 5)"
+ORANGE="$(tput setaf 208)"
+RESET="$(tput sgr0)"
 
-export VISUAL=$EDITOR
+export PS1="\[${BLUE}\]\u\[${DEFAULT_WHITE}\]@\[${GREEN}\]\h\[${DEFAULT_WHITE}\]:\[${DEFAULT_CYAN}\]\w \[${DEFAULT_WHITE}\]~\d \@~ \n\[${DEFAULT_WHITE}\]-> \[${RESET}\]"
 
-#}}}
+# }}}
 
 #{{{ ##### ALIASES #####
 ls --color=auto > /dev/null 2>&1 && alias ls='ls --color=auto' || alias ls='ls -G'  # compatibility between linux and mac
@@ -27,7 +38,7 @@ alias cd........="cd ../../../../../../../.."
 alias erc='$EDITOR ~/.bashrc; src'
 
 alias so="source"
-alias src="source ~/.bashrc"
+alias src="source ~/.bash_profile && source ~/.bashrc"
 
 alias x="chmod +x"
 
@@ -50,6 +61,10 @@ alias dcp='docker container prune'
 alias dka='docker kill $(docker ps -q)'
 dexec () { docker exec -it $1 ${2:-/bin/bash};}
 
+kri() {
+  kubectl run -it --image=${1:?Image required} --rm --restart=Never ${2:-test} ${3:-/bin/bash} 
+}
+
 #}}}
 
 # {{{ ##### FUNCTIONS #####
@@ -71,25 +86,6 @@ show_colors() {
   tput setaf 15
   echo
 }
-
-# }}}
-
-# {{{ ##### CUSTOM PROMPT #####
-
-LIGHT_BLUE="$(tput setaf 37)"
-BLUE="$(tput setaf 4)"
-WHITE="$(tput setaf 15)"
-DEFAULT_WHITE="$(tput setaf 7)"
-LIGHT_GREEN="$(tput setaf 72)"
-GREEN="$(tput setaf 2)"
-CYAN="$(tput setaf 87)"
-DEFAULT_CYAN="$(tput setaf 6)"
-RED="$(tput setaf 1)"
-LIGHT_PURPLE="$(tput setaf 200)"
-PURPLE="$(tput setaf 5)"
-RESET="$(tput sgr0)"
-
-export PS1="\[${BLUE}\]\u\[${DEFAULT_WHITE}\]@\[${GREEN}\]\h\[${DEFAULT_WHITE}\]:\[${DEFAULT_CYAN}\]\w \[${DEFAULT_WHITE}\]~\d \@~ \n\[${DEFAULT_WHITE}\]-> \[${RESET}\]"
 
 # }}}
 

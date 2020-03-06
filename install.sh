@@ -1,6 +1,6 @@
 #!/bin/bash
 
-files=(bashrc inputrc tmux.conf xonshrc gitconfig vim)
+files=(bash_profile bashrc inputrc tmux.conf xonshrc gitconfig vim taskrc)
 
 for f in ${files[@]}; do
     echo ~/.$f "-->" $(pwd)/$f

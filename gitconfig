@@ -8,8 +8,8 @@
 [difftool "nvim"]
 	cmd = nvim -d $LOCAL $MERGED
 [merge]
-	tool = nvim
-[mergetool "nvim"]
+	tool = nvim-merge
+[mergetool "nvim-merge"]
 	cmd = nvim -d $LOCAL $BASE $REMOTE -c \":botright split $MERGED\"
 
 [alias]
@@ -25,3 +25,7 @@
 	insteadOf = https://github.com/
 [rebase]
 	autosquash = 1
+[mergetool]
+	keepBackup = false
+[core]
+	excludesfile = /home/willreed/.gitignore_global

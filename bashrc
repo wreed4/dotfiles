@@ -12,43 +12,6 @@ stty -ixon
 shopt -s globstar
 #}}}
 
-#{{{ ###### VARIABLES ######
-
-export DIFF=vimdiff
-export VISUAL=$EDITOR
-export PYTHONBREAKPOINT=ipdb.set_trace
-export PIPENV_MAX_DEPTH=5
-#export TERM=xterm-256color-italic
-if [ "$TERM" == "xterm" ]; then
-    export TERM=xterm-256color
-fi
-
-export LC_ALL=en_US.UTF-8
-export LANG=en_US.UTF-8
-
-# linuxbrew setup
-if [[ -d ~/.linuxbrew ]]; then #&& ! $PATH =~ "linuxbrew" ]]; then
-    export PATH="$HOME/.linuxbrew/bin:$PATH"
-    export PATH="/home/user/wreed/.linuxbrew/sbin:$PATH"
-    export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
-    export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
-fi
-
-if [[ -d ~/.cargo ]]; then
-  export PATH="$HOME/.cargo/bin:$PATH"
-fi
-
-if [[ -d ~/pymodules ]]; then
-  export PYTHONPATH="$HOME/pymodules:$PYTHONPATH"
-fi
-
-if $(type fd > /dev/null 2>&1); then
-  export FZF_DEFAULT_COMMAND='fd --type file --follow --hidden --exclude .git --color=always'
-  export FZF_DEFAULT_OPTS="--ansi"
-fi
-
-#}}}
-
 #{{{ ##### ALIASES ######
 # general
 if $(type exa > /dev/null 2>&1); then
@@ -56,7 +19,7 @@ if $(type exa > /dev/null 2>&1); then
   alias exa="exa --color-scale --group-directories-first --level=3 --color=always"
   alias ls="exa"
   alias la="exa -a"
-  alias ll="exa -lhmU --git"
+  alias ll="exa -lhm --git"
   alias lal="ll -a"
   alias tree="exa --tree"
   alias tt="exa --tree"
@@ -66,6 +29,7 @@ fi
 
 alias vj="vim +set\ ft=json"
 alias nvj="nvim +set\ ft=json"
+alias nvy="nvim +set\ ft=yaml"
 alias nviml="nvim +\'0"
 nvims(){
   nvim -q <(ag "$1")
@@ -103,7 +67,7 @@ alias saws="~/.pyenv/versions/saws/bin/saws"
 
 #{{{ ##### HISTORY #####
 
-HISTSIZE=9000
+HISTSIZE=30000
 HISTFILESIZE=$HISTSIZE
 HISTCONTROL=ignorespace:ignoredups
 
@@ -124,6 +88,19 @@ sync_history() {
 
 #{{{ ##### Custom Prompt #####
 if [ -z $ZSH_NAME ]; then
+
+    _print_banzaicluster() {
+      # Get Virtual Env
+      if [[ $BANZAI_CURRENT_CLUSTER_NAME != "" ]]
+      then
+        cluster="${ORANGE}(${BANZAI_CURRENT_CLUSTER_NAME})${RESET} "
+      else
+        # In case you don't have one activated
+        cluster=''
+      fi
+
+      echo -e -n "$cluster"
+    }
 
     _print_virtualenv() {
       # Get Virtual Env
@@ -160,7 +137,7 @@ if [ -z $ZSH_NAME ]; then
     }
 
     PROMPT_COMMAND="_make_prompt; _saveTmuxSessionsWithContinuum"
-    export PS1="\[\$(_print_virtualenv)${LIGHT_BLUE}\]\u\[${WHITE}\]@\[${LIGHT_GREEN}\]\h\[${WHITE}\]:\[${CYAN}\]\w \[${WHITE}\]~\d \@~ \$(_print_last_return) \n\[${WHITE}\]-> \[${RESET}\]"
+    export PS1="\[\$(_print_banzaicluster)\$(_print_virtualenv)${LIGHT_BLUE}\]\u\[${WHITE}\]@\[${LIGHT_GREEN}\]\h\[${WHITE}\]:\[${CYAN}\]\w \[${WHITE}\]~\d \@~ \$(_print_last_return) \n\[${WHITE}\]-> \[${RESET}\]"
 
     # if [[ -f "$(brew --prefix bash-git-prompt)/share/gitprompt.sh" ]]; then
         # GIT_PROMPT_START="\n\e[0;32m\u\e[0m@\e[1;35m\h\e[0m:\e[4;36m\w\e[0m"
@@ -257,3 +234,8 @@ fi
 [ -f /home/william/.travis/travis.sh ] && source /home/william/.travis/travis.sh
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+if command -v find_pycompletion.sh>/dev/null; then source `find_pycompletion.sh`; fi
+
+# added by travis gem
+[ -f /home/willreed/.travis/travis.sh ] && source /home/willreed/.travis/travis.sh
