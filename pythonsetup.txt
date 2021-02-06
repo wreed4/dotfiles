@@ -1,0 +1,13 @@
+pip
+awscli
+click
+ipdb
+ipython
+jedi
+pipenv
+prompt-toolkit
+pythonpy
+PyYAML
+sh
+smdv
+thefuck

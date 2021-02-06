@@ -15,22 +15,22 @@ data.location=~/.task
 
 # Color theme (uncomment one to use)
 #include /usr/share/taskwarrior/light-16.theme
-#include /usr/share/taskwarrior/light-256.theme
-#include /usr/share/taskwarrior/dark-16.theme
-#include /usr/share/taskwarrior/dark-256.theme
+# include /usr/share/taskwarrior/light-256.theme
+include /usr/share/taskwarrior/dark-16.theme
+# include /usr/share/taskwarrior/dark-256.theme
 #include /usr/share/taskwarrior/dark-red-256.theme
-#include /usr/share/taskwarrior/dark-green-256.theme
+# include /usr/share/taskwarrior/dark-green-256.theme
 #include /usr/share/taskwarrior/dark-blue-256.theme
 #include /usr/share/taskwarrior/dark-violets-256.theme
 #include /usr/share/taskwarrior/dark-yellow-green.theme
 #include /usr/share/taskwarrior/dark-gray-256.theme
-#include /usr/share/taskwarrior/dark-gray-blue-256.theme
-#include /usr/share/taskwarrior/solarized-dark-256.theme
-#include /usr/share/taskwarrior/solarized-light-256.theme
+# include /usr/share/taskwarrior/dark-gray-blue-256.theme
+# include /usr/share/taskwarrior/solarized-dark-256.theme
+# include /usr/share/taskwarrior/solarized-light-256.theme
 #include /usr/share/taskwarrior/no-color.theme
 
 weekstart=monday
-uda.priority.values=H,M,,L
+uda.priority.values=H,M,L
 urgency.uda.priority.L.coefficient=-1.8
 uda.reviewed.type=date
 uda.reviewed.label=Reviewed
@@ -39,3 +39,20 @@ report._reviewed.columns=uuid
 report._reviewed.sort=reviewed+,modified+
 report._reviewed.filter=( reviewed.none: or reviewed.before:now-6days ) and ( +PENDING or +WAITING )
 color=on
+taskd.certificate=\/home\/willreed\/.task\/reed_willie.cert.pem
+taskd.key=\/home\/willreed\/.task\/reed_willie.key.pem
+taskd.ca=\/home\/willreed\/.task\/ca.cert.pem
+taskd.server=reedraspi.ddns.net:53589
+taskd.credentials=Reed\/Willie\/c30d106a-622c-4b0a-8492-2aad36860dd1
+context.work=+work
+context.nowork=-work
+
+uda.size.type=string
+uda.size.label=Size
+uda.size.values=large,medium,small
+urgency.uda.size.large.coefficient=-3
+urgency.uda.size.medium.coefficient=-2
+urgency.uda.size.small.coefficient=2
+
+uda.blocks.type=string
+uda.blocks.label=Blocks

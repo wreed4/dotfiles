@@ -30,6 +30,7 @@ fi
 alias vj="vim +set\ ft=json"
 alias nvj="nvim +set\ ft=json"
 alias nvy="nvim +set\ ft=yaml"
+alias nvd="nvim +set\ ft=diff"
 alias nviml="nvim +\'0"
 nvims(){
   nvim -q <(ag "$1")
@@ -40,6 +41,8 @@ alias rmd="rm *.d"
 alias gdiff='git difftool -y'
 alias gt='git tree --color'
 alias gta='git tree --all --color'
+alias gth='git tree --color | head'
+alias gtas='git tree --all --color | head'
 
 # default flags
 alias tmux="tmux -u"
@@ -89,11 +92,12 @@ sync_history() {
 #{{{ ##### Custom Prompt #####
 if [ -z $ZSH_NAME ]; then
 
-    _print_banzaicluster() {
-      # Get Virtual Env
-      if [[ $BANZAI_CURRENT_CLUSTER_NAME != "" ]]
+    _print_k8s_cluster() {
+      # Get cluster
+      cluster=$(kubectl config current-context || true)
+      if [[ $cluster != "" ]]
       then
-        cluster="${ORANGE}(${BANZAI_CURRENT_CLUSTER_NAME})${RESET} "
+        cluster="${ORANGE}(${cluster})${RESET} "
       else
         # In case you don't have one activated
         cluster=''
@@ -137,7 +141,7 @@ if [ -z $ZSH_NAME ]; then
     }
 
     PROMPT_COMMAND="_make_prompt; _saveTmuxSessionsWithContinuum"
-    export PS1="\[\$(_print_banzaicluster)\$(_print_virtualenv)${LIGHT_BLUE}\]\u\[${WHITE}\]@\[${LIGHT_GREEN}\]\h\[${WHITE}\]:\[${CYAN}\]\w \[${WHITE}\]~\d \@~ \$(_print_last_return) \n\[${WHITE}\]-> \[${RESET}\]"
+    export PS1="\[\$(_print_k8s_cluster)\$(_print_virtualenv)${LIGHT_BLUE}\]\u\[${WHITE}\]@\[${LIGHT_GREEN}\]\h\[${WHITE}\]:\[${CYAN}\]\w \[${WHITE}\]~\d \@~ \$(_print_last_return) \n\[${WHITE}\]-> \[${RESET}\]"
 
     # if [[ -f "$(brew --prefix bash-git-prompt)/share/gitprompt.sh" ]]; then
         # GIT_PROMPT_START="\n\e[0;32m\u\e[0m@\e[1;35m\h\e[0m:\e[4;36m\w\e[0m"
@@ -193,6 +197,16 @@ _ge() {
   COMPREPLY=( $(compgen -W "$(git status --short | awk '{print $2}')" -- $cur) )
 }
 complete -F _ge ge
+
+
+kgs() {
+  kubectl get secret -o go-template='{{range $k,$v := .data}}{{printf "\u001b[36m=== %s ===\u001b[0m\n" $k}}{{if not $v}}{{$v}}{{else}}{{$v | base64decode}}{{end}}{{"\n"}}{{end}}' $@
+}
+_kgs() {
+  local cur=${COMP_WORDS[COMP_CWORD]}
+  COMPREPLY=( $(compgen -W "$(kubectl get secrets -o name | awk -F'/' '{print $2}')" -- $cur) )
+}
+complete -F _kgs kgs
 
 #}}}
 

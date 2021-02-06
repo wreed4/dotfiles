@@ -43,7 +43,12 @@ alias src="source ~/.bash_profile && source ~/.bashrc"
 alias x="chmod +x"
 
 alias lt='$(fc -ln -1) | less' # "less that".  Carefull, this can be dangerous because it executes the last command
-alias wt='watch $(fc -ln -1)' # "watch that".  Carefull, this can be dangerous because it executes the last command
+alias watch="watch -c "
+# wt () {
+#   a=$(alias $1 2>/dev/null || echo $1)
+#   watch '!!'
+# }
+alias wt='watch $(fc -ln -1) ' # "watch that".  Carefull, this can be dangerous because it executes the last command
 
 alias gst='git status'
 alias gd='git diff'
@@ -52,7 +57,7 @@ alias gco='git checkout'
 alias grep="grep --color"
 
 alias dr='docker run'
-alias dri='docker run -it'
+alias dri='docker run -it --rm'
 alias drm='docker rm $(docker ps -a -f status=exited -q)'
 alias dps='docker ps'
 alias dpa='docker ps -a'
