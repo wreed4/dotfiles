@@ -100,7 +100,7 @@ if [ -z $ZSH_NAME ]; then
 
     _print_k8s_cluster() {
       # Get cluster
-      cluster=$(kubectl config current-context || true)
+      cluster=$(kubectl config current-context 2>/dev/null|| true)
       if [[ $cluster != "" ]]
       then
         cluster="${ORANGE}(${cluster})${RESET} "
