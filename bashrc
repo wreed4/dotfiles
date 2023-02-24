@@ -31,7 +31,7 @@ alias vj="vim +set\ ft=json"
 alias nvj="nvim +set\ ft=json"
 alias nvy="nvim +set\ ft=yaml"
 alias nvd="nvim +set\ ft=diff"
-alias nviml="nvim +\'0"
+alias nviml="nvim +\"normal '0\""
 nvims(){
   nvim -q <(ag "$1")
 }
@@ -41,8 +41,14 @@ alias rmd="rm *.d"
 alias gdiff='git difftool -y'
 alias gt='git tree --color'
 alias gta='git tree --all --color'
-alias gth='git tree --color | head'
-alias gtas='git tree --all --color | head'
+gth() {
+  git tree --color "$@" | head -n 20
+}
+gtah() {
+  git tree --all --color "$@" | head -n 20
+}
+# alias gth='git tree --color | head'
+# alias gtas='git tree --all --color | head'
 
 # default flags
 alias tmux="tmux -u"
@@ -207,6 +213,15 @@ _kgs() {
   COMPREPLY=( $(compgen -W "$(kubectl get secrets -o name | awk -F'/' '{print $2}')" -- $cur) )
 }
 complete -F _kgs kgs
+
+kgpn() {
+  kubectl get pods -A --field-selector spec.nodeName=$1
+}
+_kgpn() {
+  local cur=${COMP_WORDS[COMP_CWORD]}
+  COMPREPLY=( $(compgen -W "$(kubectl get nodes -o name | awk -F'/' '{print $2}')" -- $cur) )
+}
+complete -F _kgpn kgpn
 
 #}}}
 

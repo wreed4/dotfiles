@@ -70,6 +70,9 @@ kri() {
   kubectl run -it --image=${1:?Image required} --rm --restart=Never ${2:-test} ${3:-/bin/bash} 
 }
 
+krip() {
+  kubectl run -it --privileged --image=${1:?Image required} --rm --restart=Never ${2:-test} ${3:-/bin/bash}
+}
 #}}}
 
 # {{{ ##### FUNCTIONS #####
