@@ -26,6 +26,8 @@ alias la="ls -A"
 alias ll="ls -lh"
 alias lal="ls -lAh"
 
+alias k="kubectl"
+
 alias cd.="cd .."
 alias cd..="cd ../.."
 alias cd...="cd ../../.."
