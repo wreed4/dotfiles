@@ -1,6 +1,6 @@
 #!/bin/bash
 
-files=(bash_profile bashrc inputrc tmux.conf xonshrc gitconfig vim taskrc helixconf)
+files=(bash_profile bashrc inputrc tmux.conf xonshrc gitconfig vim taskrc)
 
 for f in ${files[@]}; do
     echo ~/.$f "-->" $(pwd)/$f
@@ -9,3 +9,6 @@ for f in ${files[@]}; do
 done
 
 ./vim/make_links.sh
+
+echo ~/.config/helix/conf.toml "-->" $(pwd)/helixconf.toml
+ln -s $(pwd)/helixconf.toml ~/.config/helix/config.toml
