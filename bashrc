@@ -19,7 +19,7 @@ if $(type exa > /dev/null 2>&1); then
   alias exa="exa --color-scale --group-directories-first --level=3 --color=always"
   alias ls="exa"
   alias la="exa -a"
-  alias ll="exa -lhm --git"
+  alias ll="exa -lhm"
   alias lal="ll -a"
   alias tree="exa --tree"
   alias tt="exa --tree"
@@ -71,6 +71,8 @@ alias evrc="$EDITOR +EditVimrc"
 
 alias t="task"
 alias saws="~/.pyenv/versions/saws/bin/saws"
+
+alias z="zellij"
 
 #}}}
 
@@ -264,7 +266,7 @@ fi
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
-if command -v find_pycompletion.sh>/dev/null; then source `find_pycompletion.sh`; fi
+# if command -v find_pycompletion.sh 2>&1 >/dev/null; then source `find_pycompletion.sh`; fi
 
 # added by travis gem
 [ -f /home/willreed/.travis/travis.sh ] && source /home/willreed/.travis/travis.sh
