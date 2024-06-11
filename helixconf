@@ -1,0 +1,21 @@
+
+[editor]
+true-color = true
+
+[editor.cursor-shape]
+select = "underline"
+insert = "bar"
+
+[keys.normal]
+A-j = "scroll_down"
+A-k = "scroll_up"
+
+C-l = "jump_view_right"
+C-h = "jump_view_left"
+C-k = "jump_view_up"
+C-j = "jump_view_down"
+
+C-r = "redo"
+
+C-S-x = "increment"
+A-x = "increment"
