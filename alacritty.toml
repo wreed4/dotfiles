@@ -1,0 +1,7 @@
+[shell]
+program = "zellij"
+args = ["attach", "default", "--create"]
+
+[window]
+startup_mode = "Maximized"
+dynamic_title = false
