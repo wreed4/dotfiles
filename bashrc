@@ -3,6 +3,8 @@
 # bash config
 
 source ~/.dotfiles/bash/minimal
+. $HOME/.dotfiles/path_setup.sh
+
 
 #{{{ ###### SETTINGS ######
 # set vim key bindings
@@ -73,6 +75,7 @@ alias t="task"
 alias saws="~/.pyenv/versions/saws/bin/saws"
 
 alias z="zellij"
+alias zad="zellij attach default"
 
 #}}}
 
