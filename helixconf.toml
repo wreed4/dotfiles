@@ -2,10 +2,14 @@ theme = "kaolin-dark"
 
 [editor]
 true-color = true
+line-number = "relative"
 
 [editor.cursor-shape]
 select = "underline"
 insert = "bar"
+
+[editor.soft-wrap]
+enable = true
 
 [keys.normal]
 A-j = "scroll_down"
