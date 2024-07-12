@@ -1,6 +1,9 @@
 [shell]
-program = "zellij"
-args = ["attach", "default", "--create"]
+# program = "zellij"
+# args = ["-l", "welcome"]
+# args = ["attach", "0-default", "--create"]
+program = "tmux"
+args = ["attach", "-t", "0"]
 
 [window]
 startup_mode = "Maximized"

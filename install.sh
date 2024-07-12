@@ -13,7 +13,9 @@ done
 ./vim/make_links.sh
 
 echo ~/.config/helix/conf.toml "-->" $(pwd)/helixconf.toml
-ln -s --backup=numbered $(pwd)/helixconf.toml ~/.config/helix/config.toml
+ln -s --backup=numbered $(pwd)/helix ~/.config/helix
+ln -s --backup=numbered $(pwd)/helix/helixconf.toml ~/.config/helix/config.toml
+ln -s --backup=numbered $(pwd)/helix/language.toml ~/.config/helix/config.toml
 
 [[ -d ~/.config/zellij ]] || mkdir $HOME/.config/zellij
 ln -s --backup=numbered $(pwd)/zellij_config.kdl ~/.config/zellij/config.kdl
